@@ -1,0 +1,116 @@
+<html>
+
+<head>
+  <base href="https://secure-personal-site.com/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>page de connexion</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 0.5rem;
+      margin: 1rem 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #content {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="login">
+      <h1>Connexion</h1>
+      <input type="text" id="username" placeholder="Nom d'utilisateur">
+      <input type="password" id="password" placeholder="Mot de passe">
+      <button onclick="authenticate()">Se connecter</button>
+    </div>
+    <div id="content">
+      <h1>Biencenu sur votre espace privé</h1>
+      <p>Cliquez ici pour acceder</p>
+      <a href="https://chamssat.github.io/Gestion2.0/" target="_blank">
+        <button>Accéder à System Numérique</button>
+      </a>
+      <!--<button onclick="logout()">Se déconnecter</button>-->
+    </div>
+  </div>
+
+  <script>
+    const CORRECT_PASSWORD = "90515204";
+
+    function authenticate() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (password === CORRECT_PASSWORD) {
+        // Authentification réussie
+        localStorage.setItem('authenticated', 'true');
+        localStorage.setItem('username', username);
+        showContent();
+      } else {
+        alert("Mot de passe incorrect. Veuillez réessayer.");
+      }
+    }
+
+    function showContent() {
+      document.getElementById('login').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    }
+
+    function logout() {
+      localStorage.removeItem('authenticated');
+      localStorage.removeItem('username');
+      document.getElementById('login').style.display = 'block';
+      document.getElementById('content').style.display = 'none';
+    }
+
+    // Vérifier si l'utilisateur est déjà authentifié
+    window.onload = function() {
+      if (localStorage.getItem('authenticated') === 'true') {
+        showContent();
+      }
+    }
+  </script>
+</body>
+
+</html>
